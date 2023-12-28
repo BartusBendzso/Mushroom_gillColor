@@ -166,9 +166,7 @@ with col2:
         ('Decision Tree', 'Logistic Regression', 'Random Forest', 'SVM'))
     st.write('You selected:', model_input)
     
-    model = model_list[model_label.index(model_input)]
-    
     if st.button("Predict type of Gill-color"):
         result = predict(
-            np.array([[cap_shape, cap_color, odor, gill_attachment, class_, stalk_shape, stalk_root, stalk_surface_above_ring, stalk_surface_below_ring, stalk_color_above_ring, stalk_color_below_ring, ring_type, spore_print_color, population]]), model)
-        st.text(result[0])
+            np.array([[cap_shape, cap_color, odor, gill_attachment, class_, stalk_shape, stalk_root, stalk_surface_above_ring, stalk_surface_below_ring, stalk_color_above_ring, stalk_color_below_ring, ring_type, spore_print_color, population]]), model_list[model_label.index(model_input)])
+        st.text(str(result[0]))
