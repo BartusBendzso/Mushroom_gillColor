@@ -1,8 +1,8 @@
 import streamlit as st
 import pandas as pd
 import numpy as np
-from prediction import predict
-import sklearn
+from prediction import predict_homemade
+
 
 st.title('Classifying Mushrooms')
 st.markdown('Predicting Mushrooms Gill-color')
@@ -167,6 +167,6 @@ with col2:
     st.write('You selected:', model_input)
     
     if st.button("Predict type of Gill-color"):
-        result = predict(
+        result = predict_homemade(
             np.array([[cap_shape, cap_color, odor, gill_attachment, class_, stalk_shape, stalk_root, stalk_surface_above_ring, stalk_surface_below_ring, stalk_color_above_ring, stalk_color_below_ring, ring_type, spore_print_color, population]]), model_list[model_label.index(model_input)])
         st.text(str(result[0]))
