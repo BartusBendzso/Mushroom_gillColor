@@ -2,6 +2,7 @@ import streamlit as st
 import pandas as pd
 import numpy as np
 from prediction import predict_homemade
+import sklearn
 
 
 st.title('Classifying Mushrooms')
@@ -160,6 +161,9 @@ population = population_array[population_list.index(population_input)]
 model_list = ['gill_color_classifier_DTree_model.pkl', 'gill_color_classifier_LR_model.pkl', 'gill_color_classifier_RF_model.pkl', 'gill_color_classifier_SVM_model.pkl']
 model_label = ['Decision Tree', 'Logistic Regression', 'Random Forest', 'SVM']
 
+gillColor_list = [0, 1, 3, 4, 6, 5, 2]
+gillColor_labels = ['black', 'brown', 'gray', 'pink', 'white', 'purple', 'buff']
+
 with col2:
     model_input = st.selectbox(
         'Select model',
@@ -167,6 +171,8 @@ with col2:
     st.write('You selected:', model_input)
     
     if st.button("Predict type of Gill-color"):
-        result = predict_homemade(
-            np.array([[cap_shape, cap_color, odor, gill_attachment, class_, stalk_shape, stalk_root, stalk_surface_above_ring, stalk_surface_below_ring, stalk_color_above_ring, stalk_color_below_ring, ring_type, spore_print_color, population]]), model_list[model_label.index(model_input)])
-        st.text(str(result[0]))
+        model = model_list[model_label.index(model_input)]
+        result = predict_homemade(            
+            np.array([[cap_shape, cap_color, odor, gill_attachment, class_, stalk_shape, stalk_root, stalk_surface_above_ring, stalk_surface_below_ring, stalk_color_above_ring, stalk_color_below_ring, ring_type, spore_print_color, population]]), model)
+        gillColor = gillColor_labels[gillColor_list.index(result[0])]
+        st.text(gillColor)
